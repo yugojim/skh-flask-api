@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+                <cdp:ContentPackage Id="I-20230223201079620" xmlns:cdp="http://www.hl7.org.tw/EMR/CDocumentPayload/v1.0" xmlns="urn:hl7-org:v3" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.hl7.org.tw/EMR/CDocumentPayload/v1.0 CDA_Package_V01.xsd">
+                <cdp:ContentContainer range = "0" >
+                <cdp:StructuredContent > <ClinicalDocument classCode="DOCCLIN" moodCode="EVN" xmlns="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:v3 CDA.xsd">
+  <typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3" />
+  <templateId extension="115_V108.0" root="2.16.886.101.20003.20014" />
+  <id extension="15168590.20230313170013" root="2.16.886.104.101237.100000" />
+  <!--表示本文件為出院病摘單-->
+  <code code="18842-5" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Discharge Summary" />
+  <title>出院病摘單</title>
+  <!-- 文件列印日期 格式為 : YYYY[MM[DD[HH[MM]]]]  西元年月日時分-->
+  <effectiveTime value="20230313170013" />
+  <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25" codeSystemName="Confidentiality" displayName="normal" />
+  <!-- 語言碼 -->
+  <languageCode code="zh-TW" />
+  <!-- 本文件之病患資料 -->
+  <recordTarget typeCode="RCT" contextControlCode="OP">
+    <patientRole classCode="PAT">
+      <!--4. 病歷號碼
+            @extension : 在該院之病歷號
+            @root : 該院之OID
+      -->
+      <id extension="15168590" root="2.16.886.104.101237.100000" />
+      <!-- 病患基本資料 -->
+      <patient classCode="PSN" determinerCode="INSTANCE">
+        <!--3. 身分證號
+               @extension : 此病患之身分證字號
+               @root : 2.16.886.101.20003.20001 (內政部）。
+         -->
+        <id extension="A123456789" root="2.16.886.101.20003.20001" />
+        <!--5. 姓名-->
+        <name>李OO</name>
+        <!--6. 性別
+               @code : 性別代碼
+               @codeSystem : 2.16.840.1.113883.5.1 (HL7 Vocabulary OID)
+         -->
+        <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGender" />
+        <!--7. 出生日期-->
+        <birthTime value="19510712" />
+      </patient>
+      <!--醫事機構 -->
+      <providerOrganization classCode="ORG" determinerCode="INSTANCE">
+        <!--1. 醫事機構代碼-->
+        <id extension="1101150011" root="2.16.886.101.20003.20014" />
+        <!--2. 醫事機構名稱-->
+        <name>新光醫療財團法人新光吳火獅紀念醫院</name>
+      </providerOrganization>
+    </patientRole>
+  </recordTarget>
+  <!-- author1 -->
+  <author typeCode="AUT" contextControlCode="OP">
+    <!--醫師記錄日期時間-->
+    <time value="20230302111302" />
+    <assignedAuthor classCode="ASSIGNED">
+      <!--醫師於醫事機構之代碼-->
+      <id extension="A11XXXX053" root="2.16.886.104.101237.100000" />
+      <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+        <!--31. 醫師姓名-->
+        <name>A11XXXX053</name>
+      </assignedPerson>
+    </assignedAuthor>
+  </author>
+  <!-- 本文件保管單位 -->
+  <custodian typeCode="CST">
+    <assignedCustodian classCode="ASSIGNED">
+      <representedCustodianOrganization classCode="ORG" determinerCode="INSTANCE">
+        <!--1. 醫事機構代碼-->
+        <id extension="1101150011" root="2.16.886.101.20003.20014" />
+        <!--2. 醫事機構名稱-->
+        <name>新光醫療財團法人新光吳火獅紀念醫院</name>
+      </representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
+  <!-- 轉入醫事機構基本資料 -->
+  <!--由何醫院或診所轉入ParticipationType typeCode='REFB' : Referred By'-->
+  <participant typeCode="REFB">
+    <associatedEntity classCode="PROV">
+      <!--12. 轉入醫事機構代碼-->
+      <id extension="null" root="2.16.886.101.20003.20014" />
+      <scopingOrganization>
+        <!--13. 轉入醫事機構名稱-->
+        <name></name>
+      </scopingOrganization>
+    </associatedEntity>
+  </participant>
+  <!-- 轉出醫療機構基本資料 -->
+  <!--轉至何醫療機構REFT：Referred To, A participant (e.g. provider) who has referred the subject of an act (e.g. patient)-->
+  <participant typeCode="REFT">
+    <associatedEntity classCode="PROV">
+      <!--29. 轉出醫事機構代碼-->
+      <id extension="null" root="2.16.886.101.20003.20014" />
+      <scopingOrganization>
+        <!--30. 轉出醫事機構名稱-->
+        <name></name>
+      </scopingOrganization>
+    </associatedEntity>
+  </participant>
+  <componentOf typeCode="COMP">
+    <encompassingEncounter classCode="ENC" moodCode="EVN">
+      <effectiveTime>
+        <!--10. 住院日期-->
+        <low value="20230223" />
+        <!--11. 出院日期-->
+        <high value="20230302" />
+      </effectiveTime>
+      <!-- 科別與病床 -->
+      <location typeCode="LOC">
+        <!-- 科別 -->
+        <healthCareFacility classCode="SDLOC">
+          <location classCode="PLC" determinerCode="INSTANCE">
+            <!--8. 出院科別-->
+            <name>血液腫瘤科</name>
+            <!--9. 出院床號-->
+            <addr>8223</addr>
+          </location>
+        </healthCareFacility>
+      </location>
+    </encompassingEncounter>
+  </componentOf>
+  <!--
+        ********************************************************
+        CDA Body Level 2 
+        ********************************************************
+  -->
+  <component typeCode="COMP" contextConductionInd="true">
+    <structuredBody classCode="DOCBODY" moodCode="EVN">
+      <!--
+        14.住院臆斷
+        ********************************************************
+        Impression
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="46241-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Hospital admission Dx" />
+          <title>住院臆斷</title>
+          <text >
+            <paragraph>1. Chronic myelomonocytic leukemia, cytogeneic [46,XY], s/p Azacitidine *1(2022/09/21-09/27), *2(2022/10/20-10/26), *3 (2022/11/18-11/24), *4(2022/12/22-12/28), *5(2023/1/27-2/2)
+2. Chronic kidney disease stage 3b
+3. Hyperuricemia with gout attack</paragraph>
+          </text>
+        </section>
+      </component>
+      <!--
+        15.出院診斷
+        ********************************************************
+        Diagnosis
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="11535-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Hospital discharge Dx" />
+          <title>出院診斷</title>
+          <text >
+            <paragraph>1. Chronic myelomonocytic leukemia, cytogeneic [46,XY], s/p Azacitidine *1(2022/09/21-09/27), *2(2022/10/20-10/26), *3 (2022/11/18-11/24), *4(2022/12/22-12/28), *5(2023/1/27-2/2), 6*(2023/2/24-3/2)
+
+[Underlying]
+- Poor healing wound of left thumb s/p debridement and fasciotomy on 2022/07/29 debridement and partial repair with local flap reconstruction on 2022/08/03
+- Myeloproliferative disorder, monocytes predominant
+- Chronic kidney disease stage 3b
+- Hyperuricemia with gout attack</paragraph>
+            <paragraph>慢性骨髓單核球性白血病，未達到緩解</paragraph>
+          </text>
+          <entry >
+            <observation moodCode="EVN" classCode="COND">
+              <code code="C9310" displayName="Chronic myelomonocytic leukemia not having achieved remission" codeSystemName="ICD10CM" codeSystem="2.16.840.1.113883.6.3"></code>
+              <text>False</text>
+            </observation>
+          </entry>
+        </section>
+      </component>
+      <!--
+        16. 癌症期別
+        ********************************************************
+        Cancer Staging
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="22037-6" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Cancer Staging" />
+          <title>癌症期別</title>
+        </section>
+      </component>
+      <!--
+        17. 主訴
+        ********************************************************
+        Chief complaint
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="10154-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Chief complaint" />
+          <title>主訴</title>
+          <text >
+            <paragraph>Admitted for scheduled chemotherapy</paragraph>
+          </text>
+        </section>
+      </component>
+      <!--
+        18. 病史
+        ********************************************************
+        History of past illness
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="10164-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="History of past illness" />
+          <title>病史</title>
+          <text >
+            <paragraph>Nil</paragraph>
+          </text>
+        </section>
+      </component>
+      <!--
+        19. 家族圖譜
+        ********************************************************
+        Family Tree
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="74027-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName=" Family pedigree identifier" />
+          <title>家族圖譜</title>
+          <text>
+            <!-- 呈現方式：文字敘述。可以多個paragraph顯示多項家族圖譜資訊-->
+            <paragraph>家族圖譜文字敘述</paragraph>
+          </text>
+          <!-- 內嵌影像檔案，可以多個entry顯示多項圖檔-->
+          <entry>
+            <!--第一張圖檔-->
+            <observationMedia classCode="DGIMG" moodCode="EVN">
+              <value mediaType="image/jpeg" representation="B64">
+Base64編碼之JPEG檔
+</value>
+            </observationMedia>
+          </entry>
+        </section>
+      </component>
+      <!--
+        19. 理學檢查發現
+        ********************************************************
+        Physical findings
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="29545-1" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Physical findings" />
+          <title>理學檢查發現</title>
+        </section>
+      </component>
+      <!--
+        20. 檢驗
+        ********************************************************
+        Laboratory Data
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="30954-2" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Laboratory Data" />
+          <title>檢驗</title>
+          <text >
+            <paragraph>20230223  生化血清組檢驗報告  Blood  40</paragraph>
+            <paragraph>20230223  生化血清組檢驗報告  Blood  16</paragraph>
+            <paragraph>20230223  生化血清組檢驗報告  Blood  1.00</paragraph>
+            <paragraph>20230223  生化血清組檢驗報告  Blood  201</paragraph>
+            <paragraph>20230223  生化血清組檢驗報告  Blood  1.25</paragraph>
+            <paragraph>20230223  生化血清組檢驗報告  Blood  139</paragraph>
+            <paragraph>20230223  生化血清組檢驗報告  Blood  3.1</paragraph>
+            <paragraph>20230223  生化血清組檢驗報告  Blood  56.94</paragraph>
+            <paragraph>20230223  生化血清組檢驗報告  Blood  15</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  6.4</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  3.88</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  10.6</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  32.2</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  83.0</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  27.3</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  32.9</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  19.0</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  122</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  3.99</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  61.9</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  29.8</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  5.3</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.2</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  2.8</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.2</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230223  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230224  生化血清組檢驗報告  Urine  402</paragraph>
+            <paragraph>20230224  生化血清組檢驗報告  Urine  70.61</paragraph>
+            <paragraph>20230224  生化血清組檢驗報告  Urine  50.1</paragraph>
+            <paragraph>20230224  生化血清組檢驗報告  Urine  47</paragraph>
+            <paragraph>20230224  生化血清組檢驗報告  Urine  14.4</paragraph>
+            <paragraph>20230224  生化血清組檢驗報告  Urine  318</paragraph>
+            <paragraph>20230224  生化血清組檢驗報告  Urine  ***</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Blood  136</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Blood  4.3</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Blood  23</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Blood  12</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Blood  1.60</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Blood  42.82</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Blood  24</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  7.6</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  4.55</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  12.5</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  38.2</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  84.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  27.5</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  32.7</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  18.6</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  203</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  3.47</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  46.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  28.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  19.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  2.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  5.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230301  血液組檢驗報告  Blood  0.0</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Urine  6.20</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Urine  193</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Urine  20.55</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Urine  54</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Urine  17.9</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Urine  47</paragraph>
+            <paragraph>20230301  生化血清組檢驗報告  Urine  0.30</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  ***</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Yellow</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Clear</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  1.005</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  7.5</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Negative</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Negative</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Negative</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Negative</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Negative</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  0.2</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Negative</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Negative</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  ***</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  0-2</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  0-5</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  0-5</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Not Found</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  -</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Not Found</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  -</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  -</paragraph>
+            <paragraph>20230301  鏡檢組檢驗報告  Urine  Not Found</paragraph>
+          </text>
+        </section>
+      </component>
+      <!--
+        21. 特殊檢查
+        ********************************************************
+        Specific Examination
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="19146-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Specific Examination" />
+          <title>特殊檢查</title>
+        </section>
+      </component>
+      <!--
+        22. 醫療影像檢查
+        ********************************************************
+        Imaging Study
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="19005-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Imaging Study" />
+          <title>醫療影像檢查</title>
+          <text>
+            <paragraph></paragraph>
+          </text>
+          <!-- 內嵌影像檔案，可以多個entry顯示多項圖檔 -->
+          <entry>
+            <!--第一張圖檔-->
+            <observationMedia classCode="DGIMG" moodCode="EVN">
+              <value mediaType="image/jpeg" representation="B64">
+                       Base64編碼之JPEG檔
+</value>
+            </observationMedia>
+          </entry>
+        </section>
+      </component>
+      <!--
+        23. 病理報告
+        ********************************************************
+        Pathology Report
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="22034-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Pathology Report" />
+          <title>病理報告</title>
+        </section>
+      </component>
+      <!--
+       24.  手術日期及方法
+        ********************************************************
+        Surgical Method and finding
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="8724-7" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Surgical Method and finding" />
+          <title>手術日期及方法</title>
+        </section>
+      </component>
+      <!--
+       25.  住院治療經過
+        ********************************************************
+        Hospital course
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="8648-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Hospital course" />
+          <title>住院治療經過</title>
+          <text >
+            <paragraph>The is a 71-year-old male carpenter with underlying disease of:
+1. Chronic myelomonocytic leukemia, cytogeneic [46,XY], s/p Azacitidine *1(2022/09/21-09/27), *2(2022/10/20-10/26), *3 (2022/11/18-11/24), *4(2022/12/22-12/28), *5(2023/1/27-2/2)
+2. Chronic kidney disease stage 3b
+3. Hyperuricemia with gout attack
+
+He was diagnosed with chronic myelomonocytic leukemia by  accidental finding of abnormal hemogram while visiting ER for left thumb wound. The bone marrow smear was done  and had been regularly followed at hematology outpatient. He denied fever, weight loss, night sweats, abdominal fullness or pain, nausea, diarrhea, or fatigue. Leukocytosis improved after hydroxyurea treatment, but monocytosis was still noted. Thus, first cycle of chemotherapy with azacitidine was initiated since 2022/09/21. The application of azacitidine had been approved.
+According to the patient’s statement, no any general discomfort after last chemotherapy. This time, she was admitted for regular chemotherapy.  </paragraph>
+          </text>
+        </section>
+      </component>
+      <!--
+       26.  合併症與併發症
+        ********************************************************
+        Comorbidites and/or Complications
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="55109-3" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Complications Document" />
+          <title>合併症與併發症</title>
+        </section>
+      </component>
+      <!--
+       27.  出院指示
+        ********************************************************
+        Hospital Discharge Instructions
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="8653-8" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Hospital discharge instructions" />
+          <title>出院指示</title>
+          <text >
+            <paragraph>用藥:
+回診:
+2023-03-14	下午	血液腫瘤科	林瑛珠	75診	28
+2023-03-14	下午	腎臟科	呂至剛	聖賢2診	29
+復健:
+營養衛教:
+追蹤衛教:
+其他:</paragraph>
+          </text>
+        </section>
+      </component>
+      <!--
+        28. 出院狀況
+        ********************************************************
+        Discharge Status
+        ********************************************************
+      -->
+      <component typeCode="COMP" contextConductionInd="true">
+        <section classCode="DOCSECT" moodCode="EVN">
+          <code code="42345-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Discharge Status" />
+          <title>出院狀況</title>
+          <text >
+            <paragraph>Stable</paragraph>
+          </text>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument></cdp:StructuredContent>
+                </cdp:ContentContainer>
+                </cdp:ContentPackage>

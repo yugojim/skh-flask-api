@@ -1,0 +1,36 @@
+version: "3.7"
+ 
+services: 
+  flask:
+    build: ./flaska
+    container_name: flaska
+    image: flaska:1.0.0
+    restart: always
+    environment:
+      - APP_NAME=FlaskApp
+    expose:
+        - 8181
+    #ports:    
+    
+  nginx:
+    build: ./nginxd
+    container_name: template_nginx
+    image: template_nginx:1.0.0
+    restart: always
+    ports:
+      - "8888:8888"
+      #- "443:443" 
+    depends_on:
+      - flask
+      
+  #db:
+    #image: postgres
+    #container_name: postgres
+    #volumes:
+    #  - ./postgres-data:/var/lib/postgresql/data
+    #environment:
+    #  POSTGRES_DB: db_name
+    #  POSTGRES_USER: postgres_n
+    #  POSTGRES_PASSWORD: postgres_p
+    #ports:
+    #  - 5432:5432

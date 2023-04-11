@@ -6,9 +6,9 @@ import pathlib
 import requests
 import xmltodict
 
-fhir = 'http://104.208.68.39:8080/fhir/'#4600VM
+#fhir = 'http://104.208.68.39:8080/fhir/'#4600VM
 #fhir = "http://61.67.8.220:8080/fhir/"#skh outside
-#fhir = "http://10.2.1.17:8080/fhir/"#skh inside
+fhir = "http://10.2.1.17:8080/fhir/"#skh inside
 #fhir = "http://106.105.181.72:8080/fhir/"#tpech
 
 app = Flask(__name__)

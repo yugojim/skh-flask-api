@@ -1,16 +1,19 @@
 import json
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 from datetime import datetime
 import pathlib
 import requests
 import xmltodict
 
-#fhir = 'http://104.208.68.39:8080/fhir/'#4600VM
+fhir = 'http://104.208.68.39:8080/fhir/'#4600VM
 #fhir = "http://61.67.8.220:8080/fhir/"#skh outside
-fhir = "http://10.2.1.17:8080/fhir/"#skh inside
+#fhir = "http://10.2.1.17:8080/fhir/"#skh inside
 #fhir = "http://106.105.181.72:8080/fhir/"#tpech
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 #with open('D:/2023/01/skh-flask-api-nginx/flaska/DischargeSummary.xml', 'r', encoding='utf-8') as file:
 #    my_xml = file.read()
 #my_ordered_dict=xmltodict.parse(my_xml)
@@ -131,6 +134,7 @@ def PostFhirComposition(record):
         return ({'NG'})
 
 @app.route('/', methods=['GET'])
+@cross_origin()
 def query_records():
     #record = json.loads(request.data)
     #print(name)
@@ -143,6 +147,7 @@ def query_records():
     return jsonify({'message': 'GET'}), 200
 
 @app.route('/', methods=['POST'])
+@cross_origin()
 def create_record():
     #record = json.loads(request.data)
     #record = json.loads(request.data, strict=False)

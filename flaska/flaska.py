@@ -7,8 +7,8 @@ import requests
 import xmltodict
 
 #fhir = 'http://104.208.68.39:8080/fhir/'#4600VM
-#fhir = "http://61.67.8.220:8080/fhir/"#skh outside
-fhir = "http://10.2.1.17:8080/fhir/"#skh inside
+fhir = "http://61.67.8.220:8080/fhir/"#skh outside
+#fhir = "http://10.2.1.17:8080/fhir/"#skh inside
 #fhir = "http://106.105.181.72:8080/fhir/"#tpech
 
 app = Flask(__name__)
@@ -142,7 +142,7 @@ def PostFhirComposition(record):
         return ({'NG'})
     
 @app.route('/', methods=['GET'])
-<<<<<<< HEAD
+@cross_origin()
 def serverstatus():
     #record = json.loads(request.data)
     #print(name)
@@ -155,9 +155,7 @@ def serverstatus():
     return jsonify({'Server Status' : 'run'}), 200
 
 @app.route('/DischargeSummary', methods=['GET'])
-=======
 @cross_origin()
->>>>>>> 0d5f8e4a0a2b75d31b874baec29d55f0926bd003
 def query_records():
     #record = json.loads(request.data)
     #print(name)
@@ -169,12 +167,8 @@ def query_records():
                 return jsonify(record)'''
     return jsonify({'message': 'GET'}), 200
 
-<<<<<<< HEAD
 @app.route('/DischargeSummary', methods=['POST'])
-=======
-@app.route('/', methods=['POST'])
 @cross_origin()
->>>>>>> 0d5f8e4a0a2b75d31b874baec29d55f0926bd003
 def create_record():
     #record = json.loads(request.data)
     #record = json.loads(request.data, strict=False)
@@ -192,6 +186,7 @@ def create_record():
     return jsonify(Composition), status_code
 
 @app.route('/DischargeSummary', methods=['PUT'])
+@cross_origin()
 def update_record():
     #dataString = request.data.decode('utf-8')
     #dataString = dataString.replace('\n','')
@@ -211,6 +206,7 @@ def update_record():
     
     
 @app.route('/DischargeSummary', methods=['DELETE'])
+@cross_origin()
 def delte_record():
     #record = json.loads(request.data)
     '''new_records = []

@@ -1,0 +1,954 @@
+openapi: 3.0.3
+info:
+  title: 新光醫院 單張交換 to FHIR - API 使用說明書
+  description: |-
+    新光醫院 交換單張 XML to FHIR :
+
+            API 0.1.0 based on the OpenAPI 3.0 specification.
+
+    概述 : 
+
+            將現行交換單張XML轉成FHIR 並存入FHIR Server
+
+    對象 :
+
+            1.出院病摘
+            2.門診病歷(第二階段)
+            3.血液檢驗(第二階段)
+            4.檢查報告(第二階段)
+
+    方法 : 
+            
+            依現行衛生福利部電子病歷FHIR推動專區公告標準，將欄位對應至FHIR相對resourceType欄位，存入FHIR Server
+
+    配套 : 
+
+            上傳後至FHIR Portal，查詢上傳資料狀態
+
+    事項 : 
+          
+            後續維護更新責任者-緯謙科技
+
+    Some useful links:
+    - [衛生福利部電子病歷FHIR推動專區](https://emr.mohw.gov.tw/myemr/fhir.html)
+    - [緯謙科技](https://www.wiadvance.com/)
+
+
+    - [專案負責部門 : T02300 ]
+    - [電話 : 02-66126262]
+    - [分機 : 14711 ]
+
+    - [WIA FHIR Portal](http://104.208.68.39:8000/)
+    - [WIA FHIR server](http://104.208.68.39:8080/)
+  contact:
+    email: Gojim.Yu@wiadvance.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.1.0
+externalDocs:
+  description: Find out more about 緯謙科技
+  url: https://www.wiadvance.com/
+servers:
+  - url: hhttp://10.2.1.17:8888
+tags:
+  - name: 交換單張
+    description: 公告交換單張標準
+    externalDocs:
+      description: 衛生福利部電子病歷FHIR推動專區
+      url: https://emr.mohw.gov.tw/myemr/fhir.html
+paths:
+  /:
+    post:
+      tags:
+        - 出院病摘單
+      summary: Electronic referral form to FHIR
+      description: 將目前電子轉診單轉為FHIR並儲存至FHIR server
+      operationId: add_pet
+      requestBody:
+        description: Composition_DischargeSummary
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ContentPackage'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Composition_DischargeSummary_ApiResponse'
+      security:
+        - petstore_auth:
+            - write:gojim
+            - read:gojim
+      x-openapi-router-controller: swagger_server.controllers.referral_controller
+components:
+  schemas:
+    ContentPackage:
+      type: object
+      properties:
+        id:
+          type: string
+          example: I-20230223201079620
+          xml:
+            attribute: true
+        xmlns:
+          type: string
+          example: urn:hl7-org:v3
+          xml:
+            attribute: true
+        xmlns:xmime:
+          type: string
+          example: http://www.w3.org/2005/05/xmlmime
+          xml:
+            attribute: true
+        xmlns:xsi:
+          type: string
+          example: http://www.w3.org/2001/XMLSchema-instance
+          xml:
+            attribute: true
+        xsi:schemaLocation:
+          type: string
+          example: http://www.hl7.org.tw/EMR/CDocumentPayload/v1.0 CDA_Package_V01.xsd
+          xml:
+            attribute: true
+        cdp:ContentContainer:
+          type: object
+          properties:
+            range:
+              type: integer
+              xml:
+                attribute: true
+            cdp:StructuredContent:
+              type: object
+              properties:
+                ClinicalDocument:
+                  type: object
+                  properties:
+                    classCode:
+                      type: string
+                      example: DOCCLIN
+                      xml:
+                        attribute: true
+                    moodCode:
+                      type: string
+                      example: EVN
+                      xml:
+                        attribute: true
+                    xmlns:
+                      type: string
+                      example: urn:hl7-org:v3
+                      xml:
+                        attribute: true
+                    xmlns:voc:
+                      type: string
+                      example: urn:hl7-org:v3/voc
+                      xml:
+                        attribute: true
+                    xmlns:xsi:
+                      type: string
+                      example: http://www.w3.org/2001/XMLSchema-instance
+                      xml:
+                        attribute: true
+                    xsi:schemaLocation:
+                      type: string
+                      example: urn:hl7-org:v3 CDA.xsd
+                      xml:
+                        attribute: true
+                    typeId:
+                      type: object
+                      properties:
+                        extension:
+                          type: string
+                          example: POCD_HD000040
+                          xml:
+                            attribute: true
+                        root:
+                          type: string
+                          example: 2.16.840.1.113883.1.3
+                          xml:
+                            attribute: true
+                    templateId:
+                      type: object
+                      properties:
+                        extension:
+                          type: string
+                          example: 115_V108.0
+                          xml:
+                            attribute: true
+                        root:
+                          type: string
+                          example: 2.16.886.101.20003.20014
+                          xml:
+                            attribute: true
+                    id:
+                      type: object
+                      properties:
+                        extension:
+                          type: string
+                          example: '15168590.20230313170013'
+                          xml:
+                            attribute: true
+                        root:
+                          type: string
+                          example: 2.16.886.104.101237.100000
+                          xml:
+                            attribute: true
+                    code:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: "18842-5"
+                          xml:
+                            attribute: true
+                        codeSystem:
+                          type: string
+                          example: "2.16.840.1.113883.6.1"
+                          xml:
+                            attribute: true
+                        codeSystemName:
+                          type: string
+                          example: "LOINC"
+                          xml:
+                            attribute: true
+                        displayName:
+                          type: string
+                          example: "Discharge Summary"
+                          xml:
+                            attribute: true
+                    title:
+                        type: string
+                        example: "出院病摘單"
+                    effectiveTime:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                          example: "20230313170013"
+                          xml:
+                            attribute: true
+                    confidentialityCode:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: "N"
+                          xml:
+                            attribute: true
+                        codeSystem:
+                          type: string
+                          example: "2.16.840.1.113883.5.25"
+                          xml:
+                            attribute: true
+                        codeSystemName:
+                          type: string
+                          example: "Confidentiality"
+                          xml:
+                            attribute: true
+                        displayName:
+                          type: string
+                          example: "normal"
+                          xml:
+                            attribute: true
+                    languageCode:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: "zh-TW"
+                          xml:
+                            attribute: true
+                    recordTarget:
+                      type: object
+                      properties:
+                        typeCode:
+                          type: string
+                          example: "RCT"
+                          xml:
+                            attribute: true
+                        contextControlCode:
+                          type: string
+                          example: "OP"
+                          xml:
+                            attribute: true
+                        patientRole:
+                          type: object
+                          properties:
+                            classCode:
+                              type: string
+                              example: "PAT"
+                              xml:
+                                attribute: true
+                            id:
+                              type: object
+                              properties:
+                                extension:
+                                  type: string
+                                  example: "15168590"
+                                  xml:
+                                    attribute: true
+                                root:
+                                  type: string
+                                  example: "2.16.886.104.101237.100000"
+                                  xml:
+                                    attribute: true
+                            patient:
+                              type: object
+                              properties:
+                                classCode:
+                                  type: string
+                                  example: "PSN"
+                                  xml:
+                                    attribute: true
+                                determinerCode:
+                                  type: string
+                                  example: "INSTANCE"
+                                  xml:
+                                    attribute: true
+                                id:
+                                  type: object
+                                  properties:
+                                    extension:
+                                      type: string
+                                      example: "A123456789"
+                                      xml:
+                                        attribute: true
+                                    root:
+                                      type: string
+                                      example: "2.16.886.101.20003.20001"
+                                      xml:
+                                        attribute: true
+                                name:
+                                  type: string
+                                  example: "李OO"
+                                administrativeGenderCode:
+                                  type: object
+                                  properties:
+                                    code:
+                                      type: string
+                                      example: "M"
+                                      xml:
+                                        attribute: true
+                                    codeSystem:
+                                      type: string
+                                      example: "2.16.840.1.113883.5.1"
+                                      xml:
+                                        attribute: true
+                                    codeSystemName:
+                                      type: string
+                                      example: "AdministrativeGender"
+                                      xml:
+                                        attribute: true
+                                birthTime:
+                                  type: object
+                                  properties:
+                                    value:
+                                      type: string
+                                      example: "19510712"
+                                      xml:
+                                        attribute: true
+                            providerOrganization:
+                                  type: object
+                                  properties:
+                                    classCode:
+                                      type: string
+                                      example: "ORG"
+                                      xml:
+                                        attribute: true
+                                    determinerCode:
+                                      type: string
+                                      example: "INSTANCE"
+                                      xml:
+                                        attribute: true
+                                    codeSystemName:
+                                      type: string
+                                      example: "AdministrativeGender"
+                                      xml:
+                                        attribute: true
+                                    id:
+                                      type: object
+                                      properties:
+                                        extension:
+                                          type: string
+                                          example: "1101150011"
+                                          xml:
+                                            attribute: true
+                                        root:
+                                          type: string
+                                          example: "2.16.886.101.20003.20014"
+                                          xml:
+                                            attribute: true
+                                    name:
+                                      type: string
+                                      example: "新光醫療財團法人新光吳火獅紀念醫院"
+                    author:
+                      type: object
+                      properties:
+                        typeCode:
+                          type: string
+                          example: "AUT"
+                          xml:
+                            attribute: true
+                        contextControlCode:
+                          type: string
+                          example: "OP"
+                          xml:
+                            attribute: true
+                        time:
+                          type: object
+                          properties:
+                            value:
+                              type: string
+                              example: "20230302111302"
+                              xml:
+                                attribute: true
+                        assignedAuthor:
+                          type: object
+                          properties:
+                            classCode:
+                              type: string
+                              example: "ASSIGNED"
+                              xml:
+                                attribute: true
+                        id:
+                          type: object
+                          properties:
+                            extension:
+                              type: string
+                              example: "A11XXXX053"
+                              xml:
+                                attribute: true
+                            root:  
+                              type: string
+                              example: "2.16.886.104.101237.100000"
+                              xml:
+                                attribute: true
+                        assignedPerson:
+                          type: object
+                          properties:
+                            classCode:
+                              type: string
+                              example: "PSN"
+                              xml:
+                                attribute: true
+                            determinerCode:  
+                              type: string
+                              example: "INSTANCE"
+                              xml:
+                                attribute: true
+                            name:
+                              type: string
+                              example: "A11XXXX053"
+                    custodian:
+                      type: object
+                      properties:
+                        typeCode:
+                          type: string
+                          example: "CST"
+                          xml:
+                            attribute: true
+                        assignedCustodian:
+                          type: object
+                          properties:
+                            classCode:
+                              type: string
+                              example: "ASSIGNED"
+                              xml:
+                                attribute: true
+                            representedCustodianOrganization:
+                              type: object
+                              properties:
+                                classCode:
+                                  type: string
+                                  example: "ORG"
+                                  xml:
+                                    attribute: true
+                                determinerCode:  
+                                  type: string
+                                  example: "INSTANCE"
+                                  xml:
+                                    attribute: true
+                                id:
+                                  type: object
+                                  properties:
+                                    extension:
+                                      type: string
+                                      example: "1101150011"
+                                      xml:
+                                        attribute: true
+                                    root:  
+                                      type: string
+                                      example: "2.16.886.101.20003.20014"
+                                      xml:
+                                        attribute: true
+                                name:
+                                  type: string
+                                  example: "新光醫療財團法人新光吳火獅紀念醫院"
+                    participant:
+                      type: object
+                      properties:
+                        typeCode:
+                          type: string
+                          example: "REFB"
+                          xml:
+                            attribute: true
+                        associatedEntity:
+                          type: object
+                          properties:
+                            classCode:
+                              type: string
+                              example: "PROV"
+                              xml:
+                                attribute: true
+                            id:
+                              type: object
+                              properties:
+                                extension:
+                                  type: string
+                                  example: "null"
+                                  xml:
+                                    attribute: true
+                                root:  
+                                  type: string
+                                  example: "2.16.886.101.20003.20014"
+                                  xml:
+                                    attribute: true
+                                scopingOrganization:
+                                  type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                      example: ""
+                    componentOf:
+                      type: object
+                      properties:
+                        typeCode:
+                          type: string
+                          example: "COMP"
+                          xml:
+                            attribute: true
+                        encompassingEncounter:
+                          type: object
+                          properties:
+                            classCode:
+                              type: string
+                              example: "ENC"
+                              xml:
+                                attribute: true
+                            moodCode:
+                              type: string
+                              example: "EVN"
+                              xml:
+                                attribute: true
+                            effectiveTime:
+                              type: object
+                              properties:
+                                encompassingEncounter:
+                                  type: object
+                                  properties:
+                                    low:
+                                      type: string
+                                      example: "ENC"
+                                      xml:
+                                        attribute: true
+                                    moodCode:
+                                      type: string
+                                      example: "EVN"
+                                      xml:
+                                        attribute: true
+                                    effectiveTime:
+                                      type: object
+                                      properties:
+                                        low:
+                                          type: object
+                                          properties:
+                                            classCode:
+                                              type: string
+                                              example: "20230223"
+                                              xml:
+                                                attribute: true
+                                        high:
+                                          type: object
+                                          properties:
+                                            classCode:
+                                              type: string
+                                              example: "20230302"
+                                              xml:
+                                                attribute: true
+                                    location:
+                                      type: object
+                                      properties:
+                                        typeCode:
+                                              type: string
+                                              example: "LOC"
+                                              xml:
+                                                attribute: true
+                                        healthCareFacility:
+                                          type: object
+                                          properties:
+                                            classCode:
+                                              type: string
+                                              example: "SDLOC"
+                                              xml:
+                                                attribute: true
+                                            location:
+                                              type: object
+                                              properties:
+                                                classCode:
+                                                  type: string
+                                                  example: "PLC"
+                                                  xml:
+                                                    attribute: true
+                                                determinerCode:
+                                                  type: string
+                                                  example: "INSTANCE"
+                                                  xml:
+                                                    attribute: true
+                                                name:
+                                                  type: string
+                                                  example: "血液腫瘤科"
+                                                addr:
+                                                  type: string
+                                                  example: "8223"
+                    component:
+                      type: object
+                      properties:
+                        typeCode:
+                              type: string
+                              example: "COMP"
+                              xml:
+                                attribute: true
+                        contextConductionInd:
+                              type: string
+                              example: "true"
+                              xml:
+                                attribute: true
+                        structuredBody:
+                          type: object
+                          properties:
+                            classCode:
+                              type: string
+                              example: "DOCBODY"
+                              xml:
+                                attribute: true
+                            moodCode:
+                              type: string
+                              example: "EVN"
+                              xml:
+                                attribute: true
+                            component:
+                              properties:
+                                typeCode:
+                                  type: string
+                                  example: "COMP"
+                                  xml:
+                                    attribute: true
+                                contextConductionInd:
+                                  type: string
+                                  example: "true"
+                                  xml:
+                                    attribute: true
+                                section:
+                                  properties:
+                                    classCode:
+                                      type: string
+                                      example: "DOCSECT"
+                                      xml:
+                                        attribute: true
+                                    moodCode:
+                                      type: string
+                                      example: "EVN"
+                                      xml:
+                                        attribute: true
+                                    code:
+                                      properties:
+                                        code:
+                                          type: string
+                                          example: "46241-6"
+                                          xml:
+                                            attribute: true
+                                        codeSystem:
+                                          type: string
+                                          example: "2.16.840.1.113883.6.1"
+                                          xml:
+                                            attribute: true
+                                        codeSystemName:
+                                          type: string
+                                          example: "LOINC"
+                                          xml:
+                                            attribute: true
+                                        displayName:
+                                          type: string
+                                          example: "Hospital admission Dx"
+                                          xml:
+                                            attribute: true
+                                        title:
+                                          type: string
+                                          example: "住院臆斷"
+                                        text :
+                                          properties:
+                                            paragraph:
+                                              type: string
+                                              example: "文字敘述"
+                                        entry :
+                                          properties:
+                                            observation:
+                                              type: object
+                                              properties:
+                                                moodCode:
+                                                  type: string
+                                                  example: "EVN"
+                                                  xml:
+                                                    attribute: true
+                                                classCode:
+                                                  type: string
+                                                  example: "COND"
+                                                  xml:
+                                                    attribute: true
+                                                code:
+                                                  type: object
+                                                  properties:
+                                                    code:
+                                                      type: string
+                                                      example: "C9310"
+                                                      xml:
+                                                        attribute: true
+                                                    displayName:
+                                                      type: string
+                                                      example: "Chronic myelomonocytic leukemia not having achieved remission"
+                                                      xml:
+                                                        attribute: true
+                                                    codeSystemName:
+                                                      type: string
+                                                      example: "ICD10CM"
+                                                      xml:
+                                                        attribute: true
+                                                    codeSystem:
+                                                      type: string
+                                                      example: "2.16.840.1.113883.6.3"
+                                                      xml:
+                                                        attribute: true
+                                                text:
+                                                  type: string
+                                                  example: "False"
+                                            observationMedia:
+                                              type: object
+                                              properties:
+                                                moodCode:
+                                                  type: string
+                                                  example: "EVN"
+                                                  xml:
+                                                    attribute: true
+                                                classCode:
+                                                  type: string
+                                                  example: "DGIMG"
+                                                  xml:
+                                                    attribute: true
+                                                value:
+                                                  type: object
+                                                  properties:
+                                                    mediaType:
+                                                      type: string
+                                                      example: "image/jpeg"
+                                                      xml:
+                                                        attribute: true
+                                                    representation:
+                                                      type: string
+                                                      example: "B64"
+                                                      xml:
+                                                        attribute: true
+
+      xml:
+        prefix: cdp
+        namespace: http://www.hl7.org.tw/EMR/CDocumentPayload/v1.0
+    Composition_DischargeSummary_ApiResponse:
+      type: object
+      properties:
+        resourceType:
+          type: string
+        id:
+          type: string
+        meta:
+          type: object
+          properties:
+            versionId:
+              type: string
+            lastUpdated:
+              type: string
+            source:
+              type: string
+        language:
+          type: string
+        text:
+          type: object
+          properties:
+            status:
+              type: string
+            div:
+              type: string
+        status:
+          type: string
+        type:
+          type: object
+          properties:
+            coding:
+              type: object
+              properties:
+                system:
+                  type: string
+                code:
+                  type: string
+                display:
+                  type: string
+        subject:
+          type: object
+          properties:
+            reference:
+              type: string
+            display:
+              type: string
+        encounter:
+          type: object
+          properties:
+            reference:
+              type: string
+        date:
+          type: string
+        author:
+          type: object
+          properties:
+            reference:
+              type: string
+            display:
+              type: string
+        title:
+          type: string
+        confidentiality:
+          type: string
+        attester:
+          type: object
+          properties:
+            mode:
+              type: string
+            time:
+              type: string
+        custodian:
+          type: object
+          properties:
+            reference:
+              type: string
+            display:
+              type: string
+        section:
+          type: object
+          properties:
+            title:
+              type: string
+            code:
+              type: object
+              properties:
+                coding:
+                  type: object
+                  properties:
+                    system:
+                      type: string
+                    code:
+                      type: string
+                    display:
+                      type: string
+            text:
+              type: object
+              properties:
+                status:
+                  type: string
+                div:
+                  type: string
+            entry:
+              type: object
+              properties:
+                reference:
+                  type: string
+      example:
+        resourceType: Composition
+        id: '1'
+        meta:
+          versionId: '1'
+          lastUpdated: '2023-03-08T06:42:02.621+00:00'
+          source: '#E3Wp8IdPMe08QsvA'
+        language: zh-TW
+        text:
+          status: generated
+          div: >-
+            <div xmlns="http://www.w3.org/1999/xhtml"><table
+            border="1"><caption>出院病摘單</caption><tr><th>身分證字號</th><th>病歷號</th><th>病人姓名</th><th>性別</th><th>出生日期</th><th>文件列印日期</th><th>醫師姓名</th><th>醫師記錄日期時間</th><th>醫院名稱</th><th>住院日期</th><th>出院日期</th><th>轉出醫事機構名稱</th><th>轉入醫事機構名稱</th></tr><tr><td>Z123456789</td><td>123456</td><td>趙錢孫</td><td>男</td><td>1997-01-01</td><td>2010-08-01</td><td>賴一施
+            </td><td>2010-07-31</td><td>國立臺灣大學醫學院附設醫院</td><td>2010-07-01</td><td>2010-07-31</td><td>陽明大學附設醫院護理之家</td><td>國立臺灣大學醫學院附設醫院</td></tr></table></div>
+        status: preliminary
+        type:
+          coding:
+            - system: http://loinc.org
+              code: 18842-5
+              display: Discharge Summary
+        subject:
+          reference: https://fhirtest.uhn.ca/baseR4/Patient/129257
+          display: 趙錢孫
+        encounter:
+          reference: https://fhirtest.uhn.ca/baseR4/Encounter/129801
+        date: '2010-08-01T11:34:00'
+        author:
+          - reference: https://fhirtest.uhn.ca/baseR4/Practitioner/129288
+            display: 賴一施
+        title: 出院病摘
+        confidentiality: 'N'
+        attester:
+          - mode: professional
+            time: '2010-07-31'
+        custodian:
+          reference: https://fhirtest.uhn.ca/baseR4/Organization/129188
+          display: 國立臺灣大學醫學院附設醫院
+        section:
+          - title: 住院臆斷
+            code:
+              coding:
+                - system: http://loinc.org
+                  code: 46241-6
+                  display: Hospital admission diagnosis Narrative - Reported
+            text:
+              status: generated
+              div: >-
+                <div
+                xmlns="http://www.w3.org/1999/xhtml"><br/><table><tr><b>住院臆斷:</b></tr><tr>有軌電車乘客在交通意外事故中與機動車輛碰撞時受傷之初期照護</tr></table></div>
+          - title: 出院診斷
+            code:
+              coding:
+                - system: http://loinc.org
+                  code: 11535-2
+                  display: Hospital discharge Dx Narrative
+            text:
+              status: generated
+              div: >-
+                <div
+                xmlns="http://www.w3.org/1999/xhtml"><br/><table><tr><b>出院診斷:</b></tr><tr>結核病(Tuberculosis)</tr></table></div>
+            entry:
+              - reference: https://fhirtest.uhn.ca/baseR4/Condition/128907
+      xml:
+        name: '##default'
+  securitySchemes:
+    petstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            write:pets: modify pets in your account
+            read:pets: read your pets
+      x-tokenInfoFunc: swagger_server.controllers.authorization_controller.check_petstore_auth
+      x-scopeValidateFunc: >-
+        swagger_server.controllers.authorization_controller.validate_scope_petstore_auth
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key

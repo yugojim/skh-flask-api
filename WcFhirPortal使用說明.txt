@@ -67,3 +67,6 @@ sudo docker restart 4d6e7f87cc9a fdf327988d7e
 ls					查詢現在目錄下檔案	(專案預設名稱sktpech)
 sudo docker ps		查詢現在Docker服務狀態
 cd sktpech			進入專案目錄
+
+新光醫院需申請 填申請單 項目
+VM ，IP，網域SSL，對內項目(外聯內)，對外項目(內聯外)

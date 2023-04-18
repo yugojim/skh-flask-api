@@ -32,12 +32,20 @@ def component2section(component_dict):
         section['code']['coding'].append(coding)
         section['title'] = component_dict['section']['title']
         try:
-            paragraphText=''
-            for p in  component_dict['section']['text']['paragraph']:
-                paragraphText = paragraphText + p
-            section['text'] =  {'status' : 'additional',\
-                                'div' : '<div xmlns=\"http://www.w3.org/1999/xhtml\">' + paragraphText + '</div>'
-                    } 
+            if component_dict['section']['title'] == '檢驗':
+                paragraphText=''
+                for p in  component_dict['section']['text']['paragraph']:
+                    paragraphText = paragraphText + p + '\n'
+                section['text'] =  {'status' : 'additional',\
+                                    'div' : '<div xmlns=\"http://www.w3.org/1999/xhtml\">' + paragraphText + '</div>'
+                        } 
+            else:    
+                paragraphText=''
+                for p in  component_dict['section']['text']['paragraph']:
+                    paragraphText = paragraphText + p
+                section['text'] =  {'status' : 'additional',\
+                                    'div' : '<div xmlns=\"http://www.w3.org/1999/xhtml\">' + paragraphText + '</div>'
+                        } 
         except:
             section['text'] = {'status' : 'additional','div' : '<div xmlns=\"http://www.w3.org/1999/xhtml\"></div>'}
 
@@ -129,8 +137,20 @@ def PostFhirComposition(record):
         return (resultjson, response.status_code)
     except:
         return ({'NG'})
-
+    
 @app.route('/', methods=['GET'])
+def serverstatus():
+    #record = json.loads(request.data)
+    #print(name)
+    '''with open('/tmp/data.txt', 'r') as f:
+        data = f.read()
+        records = json.loads(data)
+        for record in records:
+            if record['name'] == name:
+                return jsonify(record)'''
+    return jsonify({'Server Status' : 'run'}), 200
+
+@app.route('/DischargeSummary', methods=['GET'])
 def query_records():
     #record = json.loads(request.data)
     #print(name)
@@ -142,7 +162,7 @@ def query_records():
                 return jsonify(record)'''
     return jsonify({'message': 'GET'}), 200
 
-@app.route('/', methods=['POST'])
+@app.route('/DischargeSummary', methods=['POST'])
 def create_record():
     #record = json.loads(request.data)
     #record = json.loads(request.data, strict=False)
@@ -159,7 +179,7 @@ def create_record():
         f.write(json.dumps(records, indent=2))'''
     return jsonify(Composition), status_code
 
-@app.route('/', methods=['PUT'])
+@app.route('/DischargeSummary', methods=['PUT'])
 def update_record():
     #dataString = request.data.decode('utf-8')
     #dataString = dataString.replace('\n','')
@@ -178,7 +198,7 @@ def update_record():
     return jsonify({'message': 'PUT'}), 200
     
     
-@app.route('/', methods=['DELETE'])
+@app.route('/DischargeSummary', methods=['DELETE'])
 def delte_record():
     #record = json.loads(request.data)
     '''new_records = []

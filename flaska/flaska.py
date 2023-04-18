@@ -1,5 +1,6 @@
 import json
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 from datetime import datetime
 import pathlib
 import requests
@@ -11,6 +12,8 @@ fhir = "http://10.2.1.17:8080/fhir/"#skh inside
 #fhir = "http://106.105.181.72:8080/fhir/"#tpech
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 #with open('D:/2023/01/skh-flask-api-nginx/flaska/DischargeSummary.xml', 'r', encoding='utf-8') as file:
 #    my_xml = file.read()
 #my_ordered_dict=xmltodict.parse(my_xml)
@@ -139,6 +142,7 @@ def PostFhirComposition(record):
         return ({'NG'})
     
 @app.route('/', methods=['GET'])
+<<<<<<< HEAD
 def serverstatus():
     #record = json.loads(request.data)
     #print(name)
@@ -151,6 +155,9 @@ def serverstatus():
     return jsonify({'Server Status' : 'run'}), 200
 
 @app.route('/DischargeSummary', methods=['GET'])
+=======
+@cross_origin()
+>>>>>>> 0d5f8e4a0a2b75d31b874baec29d55f0926bd003
 def query_records():
     #record = json.loads(request.data)
     #print(name)
@@ -162,7 +169,12 @@ def query_records():
                 return jsonify(record)'''
     return jsonify({'message': 'GET'}), 200
 
+<<<<<<< HEAD
 @app.route('/DischargeSummary', methods=['POST'])
+=======
+@app.route('/', methods=['POST'])
+@cross_origin()
+>>>>>>> 0d5f8e4a0a2b75d31b874baec29d55f0926bd003
 def create_record():
     #record = json.loads(request.data)
     #record = json.loads(request.data, strict=False)
